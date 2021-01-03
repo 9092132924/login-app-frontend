@@ -15,19 +15,42 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getPublicContent(): Observable<any> {
-    return this.http.get(AppConstants.API_URL + 'all', { responseType: 'text' });
+  register(user): Observable<any> {
+    return this.http.post(AppConstants.API_URL + 'signup', {
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      matchingPassword: user.matchingPassword,
+      socialProvider: 'LOCAL'
+    }, httpOptions);
+  }
+
+  confirm(token): Observable<any> {
+    return this.http.get(AppConstants.API_URL + 'confirm-account?confirm-token='+token, {
+  });
+}
+
+  forget(user): Observable<any> {
+    return this.http.post(AppConstants.API_URL + 'forgot', {
+      email: user.username,
+    }, httpOptions);
+  }
+
+  reset(user,token): Observable<any> {
+    return this.http.post(AppConstants.API_URL + 'reset?confirm-token='+token, {
+      password: user.password,
+      matchingPassword: user.matchingPassword,
+    }, httpOptions);
   }
 
   getCurrentUser(): Observable<any> {
     return this.http.get(AppConstants.API_URL + 'user/me', httpOptions);
   }
 
-  change(user,form): Observable<any> {
-    return this.http.post(AppConstants.API_URL + 'change', {
-      password: form.password,
-      matchingPassword: form.matchingPassword,
-      email: user.email
-    }, httpOptions);
+
+  getPublicContent(): Observable<any> {
+    return this.http.get(AppConstants.API_URL + 'all', { responseType: 'text' });
   }
+
+
 }

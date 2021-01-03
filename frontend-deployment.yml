@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+      name: login-app-ui-deployment
+spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: login-app-ui
+    template:
+      metadata:
+        labels:
+          app: login-app-ui
+      spec:
+        containers:
+          - name: login-app-ui
+            image: 557523153113.dkr.ecr.ap-south-1.amazonaws.com/login-app-frontend:latest
+            imagePullPolicy: Always
+            ports:
+            - containerPort: 8081
+        restartPolicy: Always
+        imagePullSecrets:
+        - name: ecr-secret
+---
+#service to expose outside
+apiVersion: v1
+kind: Service
+metadata:
+      name: login-app-ui-service
+spec:
+    ports:
+      - nodePort: 31001
+        port: 80
+        targetPort: 8081
+    type: NodePort
+    selector:
+        app: login-app-ui

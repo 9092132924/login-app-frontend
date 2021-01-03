@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
 import { TokenStorageService } from '../_services/token-storage.service';
-import { UserService } from '../_services/user.service';
-
+import { AuthService } from '../_services/auth.service';
 @Component({
   selector: 'confirm-change',
   templateUrl: './changepwd.component.html',
@@ -18,7 +16,7 @@ export class ChangepwdComponent implements OnInit {
   message = '';
   notSame = false;
   user: any;
-  constructor(private userSer: UserService, private token: TokenStorageService) { }
+  constructor(private authService: AuthService, private token: TokenStorageService) { }
 
   ngOnInit(): void {
   this.user = this.token.getUser();
@@ -31,7 +29,7 @@ export class ChangepwdComponent implements OnInit {
 
     if (pass === confirmPass) {
       this.notSame = false
-      this.userSer.change(this.user, this.form).subscribe(
+      this.authService.change(this.user, this.form).subscribe(
         data => {
           this.message = data.message;
           this.success = data.success;

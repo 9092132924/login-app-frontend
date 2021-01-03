@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -12,20 +12,22 @@ export class RegisterComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
-  sucessmessage=''
+  sucessmessage = ''
 
-  constructor(private authService: AuthService) { }
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+
   }
 
   onSubmit(): void {
-    this.authService.register(this.form).subscribe(
+    this.userService.register(this.form).subscribe(
       data => {
-      
+
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.sucessmessage=data.message
+        this.sucessmessage = data.message
       },
       err => {
         this.errorMessage = err.error.message;

@@ -3,7 +3,7 @@ import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { ActivatedRoute } from '@angular/router';
-import { AppConstants } from '../common/app.constants';
+
 
 
 @Component({
@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
   message=''
   currentUser: any;
   modelobj: any;
-  googleURL = AppConstants.GOOGLE_AUTH_URL;
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private userService: UserService) {}
 
@@ -28,8 +27,6 @@ export class LoginComponent implements OnInit {
 
 	const token: string = this.route.snapshot.queryParamMap.get('token');
   const error: string = this.route.snapshot.queryParamMap.get('error');
-  //$location.search().id
-  //var listOfClients=$scope.clients;
 
   	if (this.tokenStorage.getToken()) {
       
@@ -37,7 +34,6 @@ export class LoginComponent implements OnInit {
       this.currentUser = this.tokenStorage.getUser();
     }
   	else if(token){
-      console.log("hia")
   		this.tokenStorage.saveToken(token);
   		this.userService.getCurrentUser().subscribe(
   		      data => {
@@ -58,9 +54,12 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.authService.login(this.form).subscribe(
       data => {
+        
         if(data.jwttoken){
         this.tokenStorage.saveToken(data.jwttoken);
         this.login(data.user);
+        console.log(data.jwttoken)
+        console.log(data.user)
         }else{
           this.message=data.message;
         }
@@ -77,7 +76,7 @@ export class LoginComponent implements OnInit {
 	this.isLoginFailed = false;
 	this.isLoggedIn = true;
 	this.currentUser = this.tokenStorage.getUser();
-    window.location.reload();
+   window.location.reload();
   }
 
 }

@@ -1,5 +1,5 @@
 <div class="col-md-12">
-	<div class="card card-container"  *ngIf="!display">
+	<div class="card card-container">
 		<img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
 		<form *ngIf="!display" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
 			<div class="form-group">
@@ -19,15 +19,13 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<button class="btn btn-primary btn-block">Rreset Password</button>
+				<button class="btn btn-primary btn-block">Change Password</button>
 			</div>
 			
 		</form>
-		<!--<div ng-controller="MyCtrl" ng-init="init(${model})">{{model.message}}</div>-->
-	</div>
-			<div class="alert alert-danger" role="alert" *ngIf="!success && display"> {{ message }}</div>
+		<div class="alert alert-danger" role="alert" *ngIf="!success && display"> {{ message }}</div>
 			<div class="alert alert-success" role="alert" *ngIf="success && display"> {{ message }}</div>
 			
 			<div class="alert alert-danger" role="alert" *ngIf="notSame">password and confirm password not matched</div>
-
+			
 </div>

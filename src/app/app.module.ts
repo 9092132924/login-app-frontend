@@ -16,7 +16,22 @@ import { ConirmComponent } from './confirmLogin/confirm.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { ForgetComponent } from './forget/forget.component';
 import { ResetComponent } from './reset/reset.component';
+import { RecaptchaModule } from "ng-recaptcha";
 
+import { RouterModule, Routes } from '@angular/router';
+import { RefreshComponent } from './refresh/refresh.component';
+const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'user', component: ChangepwdComponent },
+  { path: 'confirm-account', component: ConirmComponent },
+  { path: 'reset', component: ResetComponent },
+  { path: 'change', component: ChangepwdComponent },
+  { path: 'login/forget', component: ForgetComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' }
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,15 +42,19 @@ import { ResetComponent } from './reset/reset.component';
     ProfileComponent,
     ChangepwdComponent,
     ForgetComponent,
-    ResetComponent
+    ResetComponent,
+    RefreshComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-  ],
+  imports: [ BrowserModule, FormsModule,RecaptchaModule,HttpClientModule, RouterModule.forRoot(routes, {
+    //onSameUrlNavigation: 'ignore',
+    onSameUrlNavigation: 'reload'
+  }) ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+  ngOnInit(): void {
+    setTimeout(function () { window.location.reload }, 1000);
+  }
+}

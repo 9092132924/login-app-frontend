@@ -1,33 +1,34 @@
 <div class="col-md-12">
-	<div class="card card-container"  *ngIf="!display">
+	<div class="card card-container">
 		<img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
 		<form *ngIf="!display" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
 			<div class="form-group">
-				<label for="password">Password</label> <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6"
-					#password="ngModel" />
+				<label for="password">Password</label> <input type="password" class="form-control" name="password"
+					[(ngModel)]="form.password" required minlength="6" #password="ngModel" />
 				<div class="alert-danger" *ngIf="f.submitted && password.invalid">
 					<div *ngIf="password.errors.required">Password is required</div>
 					<div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="matchingPassword">Confirm Password</label> <input type="password" class="form-control" name="matchingPassword" [(ngModel)]="form.matchingPassword"
-					required minlength="6" #matchingPassword="ngModel" />
+				<label for="matchingPassword">Confirm Password</label> <input type="password" class="form-control"
+					name="matchingPassword" [(ngModel)]="form.matchingPassword" required minlength="6"
+					#matchingPassword="ngModel" />
 				<div class="alert-danger" *ngIf="f.submitted && matchingPassword.invalid">
 					<div *ngIf="matchingPassword.errors.required">Confirm Password is required</div>
 					<div *ngIf="matchingPassword.errors.minlength">Confirm Password must be at least 6 characters</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<button class="btn btn-primary btn-block">Rreset Password</button>
+				<button class="btn btn-primary btn-block">Reset Password</button>
 			</div>
-			
+
 		</form>
-		<!--<div ng-controller="MyCtrl" ng-init="init(${model})">{{model.message}}</div>-->
+		<div class="alert alert-danger" role="alert" *ngIf="!success && display"> {{ message }}</div>
+		<div class="alert alert-success" role="alert" *ngIf="success && display"> {{ message }}</div>
+
+		<div class="alert alert-danger" role="alert" *ngIf="notSame">password and confirm password not matched</div>
 	</div>
-			<div class="alert alert-danger" role="alert" *ngIf="!success && display"> {{ message }}</div>
-			<div class="alert alert-success" role="alert" *ngIf="success && display"> {{ message }}</div>
-			
-			<div class="alert alert-danger" role="alert" *ngIf="notSame">password and confirm password not matched</div>
+
 
 </div>

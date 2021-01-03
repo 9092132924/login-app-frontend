@@ -1,5 +1,9 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { MyAppModule } from "./app.module.ts";
+
+platformBrowserDynamic().bootstrapModule(MyAppModule);
 
 module.exports = function (config) {
   config.set({

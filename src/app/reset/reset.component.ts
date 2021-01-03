@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
-import { TokenStorageService } from '../_services/token-storage.service';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -19,7 +17,7 @@ success=false;
 display=false;
 message='';
 notSame=false;
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private userService: UserService) {}
+  constructor( private route: ActivatedRoute, private userService: UserService) {}
 
   ngOnInit(): void {
 
@@ -32,7 +30,7 @@ notSame=false;
   
     if(pass === confirmPass) {
       this.notSame= false   
-    this.authService.reset(this.form,this.confirmToken).subscribe(
+    this.userService.reset(this.form,this.confirmToken).subscribe(
       data => {
         this.message=data.message;
         console.log(data.success)

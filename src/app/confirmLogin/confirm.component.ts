@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
-import { TokenStorageService } from '../_services/token-storage.service';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -22,12 +20,12 @@ export class ConirmComponent implements OnInit {
   modelobj: any;
 
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private userService: UserService) {}
+  constructor( private route: ActivatedRoute, private userService: UserService) {}
 
   ngOnInit(): void {
     const confirmtoken: string = this.route.snapshot.queryParamMap.get('confirm-token');
 if(confirmtoken !=null){
-    this.authService.confirm(confirmtoken).subscribe(
+    this.userService.confirm(confirmtoken).subscribe(
       data => {
       
         this.isSuccessful = true;
