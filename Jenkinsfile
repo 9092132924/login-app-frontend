@@ -1,6 +1,6 @@
 node {
 	stage('Scm Poilling') {
-		git credentialsId: 'github', url: 'https://github.com/9092132924/app-login-frontend.git'
+		git credentialsId: 'github', url: 'https://github.com/9092132924/login-app-frontend.git'
 	}
 	stage("Build Docker images") {
 
